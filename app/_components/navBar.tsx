@@ -5,13 +5,14 @@ import { useState } from 'react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isServicesOpen, setIsServicesOpen] = useState<boolean>(false);
   const [activeLink, setActiveLink] = useState<string>('');
 
   const services = [
-    { name: 'Web Development', href: '/services/web-development' },
-    { name: 'UI/UX Design', href: '/services/ui-ux-design' },
-    { name: 'SEO Optimization', href: '/services/seo' },
-    { name: 'Mobile Apps', href: '/services/mobile-apps' },
+    { name: 'Web Development', href: '/Web-development' },
+    { name: 'UI/UX Design', href: 'UI&UX' },
+    { name: 'Graphic Designing', href: '/Graphics' },
+    { name: 'Video Editing', href: '/VideoEditing' },
   ];
 
   const toggleMenu = () => {
@@ -21,6 +22,7 @@ export default function Navbar() {
   const handleLinkClick = (linkName: string) => {
     setActiveLink(linkName);
     setIsOpen(false);
+    setIsServicesOpen(false);
   };
 
   return (
@@ -36,8 +38,8 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className={`px-3 py-2 rounded-md text-sm font-medium ${activeLink === 'home' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600'}`}
               onClick={() => handleLinkClick('home')}
             >
@@ -45,36 +47,42 @@ export default function Navbar() {
             </Link>
 
             {/* Services Dropdown */}
-            <div className="relative group">
-              <button className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 flex items-center">
+            <div className="relative">
+              <button
+                onClick={() => setIsServicesOpen(!isServicesOpen)}
+                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 flex items-center"
+              >
                 Services
-                <svg className="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <svg className="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden group-hover:block">
-                {services.map((service) => (
-                  <Link
-                    key={service.href}
-                    href={service.href}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
-                    onClick={() => handleLinkClick(service.name)}
-                  >
-                    {service.name}
-                  </Link>
-                ))}
-              </div>
+
+              {isServicesOpen && (
+                <div className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                  {services.map((service) => (
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                      onClick={() => handleLinkClick(service.name)}
+                    >
+                      {service.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className={`px-3 py-2 rounded-md text-sm font-medium ${activeLink === 'about' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600'}`}
               onClick={() => handleLinkClick('about')}
             >
               About
             </Link>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className={`px-3 py-2 rounded-md text-sm font-medium ${activeLink === 'contact' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600'}`}
               onClick={() => handleLinkClick('contact')}
             >
@@ -121,7 +129,7 @@ export default function Navbar() {
             >
               Home
             </Link>
-            
+
             <div className="px-3 py-2">
               <div className="text-base font-medium text-gray-700">Services</div>
               <div className="mt-2 space-y-1 pl-4">

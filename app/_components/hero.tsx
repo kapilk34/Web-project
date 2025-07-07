@@ -1,135 +1,122 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { ChevronRight, Code, Palette, TrendingUp, Zap, ArrowRight } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
 
-const ServicesHero = () => {
-  const [isVisible, setIsVisible] = useState(false);
+const orbitIcons = [
+  {
+    id: 1,
+    image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    angle: 0,
+  },
+  {
+    id: 2,
+    image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    angle: 72,
+  },
+  {
+    id: 3,
+    image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    angle: 144,
+  },
+  {
+    id: 4,
+    image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    angle: 216,
+  },
+  {
+    id: 5,
+    image: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    angle: 288,
+  },
+//   {
+//     id: 6,
+//     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw0_yhGEmhIF8QjL7poBJqowjSlIw0kKKOJA&s",
+//     angle: 360,
+//   },
+];
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
-  const services = [
-    {
-      icon: <Code className="w-8 h-8" />,
-      title: "Web Development",
-      description: "Custom websites & applications"
+const rotateOrbit = {
+  animate: {
+    rotate: 360,
+    transition: {
+      repeat: Infinity,
+      duration: 20,
+      ease: "linear",
     },
-    {
-      icon: <Palette className="w-8 h-8" />,
-      title: "Graphics Design",
-      description: "Visual branding & design"
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8" />,
-      title: "Digital Marketing",
-      description: "Growth-driven strategies"
-    },
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: "More Services",
-      description: "Complete digital solutions"
-    }
-  ];
+  },
+};
 
+const Hero = () => {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute top-40 right-10 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000"></div>
-      </div>
-
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-black/20">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]"></div>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20 lg:py-32">
-        <div className="max-w-6xl mx-auto">
-          {/* Hero Text */}
-          <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 mb-6 border border-white/20">
-              <span className="text-white/90 text-sm font-medium">🚀 Premium Digital Services</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              Transform Your
-              <span className="block bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
-                Digital Presence
-              </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-              We craft exceptional digital experiences through cutting-edge web development, 
-              stunning graphics, and data-driven marketing strategies that drive real results.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="group bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2">
-                Get Started Today
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              
-              <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:bg-white/20 flex items-center gap-2">
-                View Our Work
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+    <div className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 overflow-x-hidden">
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+          {/* Left Content */}
+          <div className="space-y-8 relative z-10">
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                Build. Launch. Grow.
+                <br />
+                We Create{" "}
+                <span className="text-green-500 relative">Digital Experiences.</span>
+              </h1>
+              <p className="text-lg text-gray-600 max-w-md">
+                We design and develop responsive, high-performing websites that help your
+                business grow and stand out online.
+              </p>
             </div>
           </div>
 
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className={`group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <div className="text-cyan-400 mb-4 group-hover:text-pink-400 transition-colors duration-300">
-                  {service.icon}
-                </div>
-                <h3 className="text-white font-semibold text-lg mb-2">{service.title}</h3>
-                <p className="text-white/70 text-sm">{service.description}</p>
-              </div>
-            ))}
-          </div>
+          {/* Right - Orbit UI */}
+          <div className="relative flex justify-center items-center">
+            {/* Orbit Container */}
+            <motion.div
+              variants={rotateOrbit}
+              animate="animate"
+              className="absolute w-96 h-96 rounded-full border border-dashed border-white/30"
+            >
+              {orbitIcons.map((icon) => {
+                const radius = 220;
+                const x = radius * Math.cos((icon.angle * Math.PI) / 180);
+                const y = radius * Math.sin((icon.angle * Math.PI) / 180);
+                return (
+                  <motion.div
+                    key={icon.id}
+                    className="absolute w-10 h-10"
+                    style={{
+                      left: `calc(50% + ${x}px)`,
+                      top: `calc(50% + ${y}px)`,
+                      transform: "translate(-50%, -50%)",
+                    }}
+                  >
+                    <img
+                      src={icon.image}
+                      alt="Tech Icon"
+                      className="w-full h-full object-contain"
+                      title={icon.image.split("/").pop()?.split("-")[0]?.toUpperCase()}
+                    />
+                  </motion.div>
+                );
+              })}
+            </motion.div>
 
-          {/* Stats Section */}
-          <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 text-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="text-4xl font-bold text-cyan-400 mb-2">250+</div>
-              <div className="text-white/80">Projects Completed</div>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="text-4xl font-bold text-pink-400 mb-2">150+</div>
-              <div className="text-white/80">Happy Clients</div>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="text-4xl font-bold text-purple-400 mb-2">5+</div>
-              <div className="text-white/80">Years Experience</div>
-            </div>
+            {/* Main Card */}
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              className="relative w-full max-w-md h-96 flex items-center justify-center z-10"
+            >
+              <img
+                src="https://gvu57hqxi3.ufs.sh/f/FOd38ztMu1UwHydJ2lNI50h6VMBPGnsak9oYCxpFQcEr4WLU"
+                alt="Digital Experience"
+                className="w-[90%] h-auto object-contain"
+              />
+            </motion.div>
           </div>
         </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
-        <div className="flex flex-col items-center">
-          <span className="text-sm mb-2">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
-      </div>
+      </main>
     </div>
   );
 };
 
-export default ServicesHero;
+export default Hero;

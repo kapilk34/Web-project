@@ -82,43 +82,50 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
-        <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
+      {/* Sidebar - Collapsed by default, expands on hover */}
+      <div className={`fixed inset-y-0 left-0 z-50 w-20 hover:w-64 bg-gray-100 shadow-xl transition-all duration-300 ease-in-out lg:static lg:w-20 lg:hover:w-64 ${sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full lg:translate-x-0'}`}>
+        <div className="flex items-center justify-between h-16 px-4 lg:px-6 border-b border-gray-200">
+          {sidebarOpen || (
+            <h1 className="text-xl font-bold text-gray-900 mx-auto">Admin</h1>
+          )}
+          {sidebarOpen && (
+            <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
+          )}
           <button
-            onClick={() => setSidebarOpen(false)}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
             className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
           >
-            <X className="w-5 h-5" />
+            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
         
-        <nav className="mt-6 px-3">
+        <nav className="mt-6 px-2 lg:px-3">
           {sidebarItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center px-3 py-3 text-sm font-medium rounded-xl transition-all duration-200 mb-1 ${
+              className={`w-full flex items-center px-3 py-3 text-sm font-medium rounded-xl transition-all duration-200 mb-1 group ${
                 activeTab === item.id
                   ? 'bg-indigo-50 text-indigo-600 border-r-2 border-indigo-600'
                   : 'text-gray-700 hover:bg-gray-50'
               }`}
             >
-              <item.icon className="w-5 h-5 mr-3" />
-              {item.label}
+              <item.icon className="w-5 h-5 min-w-[20px]" />
+              <span className={`ml-3 whitespace-nowrap ${sidebarOpen ? 'opacity-100' : 'lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200'}`}>
+                {item.label}
+              </span>
             </button>
           ))}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+        <div className="absolute bottom-0 left-0 right-0 p-2 lg:p-4 border-t border-gray-200">
           <div className="flex items-center">
             <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
               <User className="w-5 h-5 text-white" />
             </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">John Admin</p>
-              <p className="text-xs text-gray-500">Super Admin</p>
+            <div className={`ml-3 ${sidebarOpen ? 'opacity-100' : 'lg:opacity-0 lg:hover:opacity-100 transition-opacity duration-200'}`}>
+              <p className="text-sm font-medium text-gray-900 whitespace-nowrap">John Admin</p>
+              <p className="text-xs text-gray-500 whitespace-nowrap">Super Admin</p>
             </div>
           </div>
         </div>
@@ -140,7 +147,7 @@ const Dashboard = () => {
             </div>
             
             <div className="flex items-center space-x-4">
-              <div className="relative">
+              <div className="relative hidden md:block">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
                   type="text"
@@ -152,7 +159,7 @@ const Dashboard = () => {
                 <Bell className="w-5 h-5 text-gray-600" />
                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
               </button>
-              <button className="p-2 hover:bg-gray-100 rounded-lg">
+              <button className="p-2 hover:bg-gray-100 rounded-lg hidden md:block">
                 <Calendar className="w-5 h-5 text-gray-600" />
               </button>
             </div>
